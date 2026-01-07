@@ -59,7 +59,7 @@ join guests g on g.guest_id = b.guest_id
 group by g.guest_id, b.guest_id;
 
 -- Liệt kê các loại phòng khác nhau trong khách sạn
-select * from rooms;  
+select distinct room_type from rooms;
 
 -- Hiển thị loại phòng và giá thuê theo ngày, sắp xếp theo giá tăng dần
 select room_id,
@@ -80,11 +80,9 @@ group by room_type;
 
 -- PHẦN II – TRUY VẤN NÂNG CAO
 -- Hãy liệt kê danh sách các lần đặt phòng, Với mỗi lần đặt phòng, hãy hiển thị:
-select g.guest_name , r.room_type, b.check_in 
-from bookings b
-left join guests g on (g.guest_id = b.guest_id)
-left join rooms r on (r.guest_id  = b.guest_id)
-order by b.check_in;
+select g.guest_name,r.room_type,b.check_in from bookings b
+join guests g on b.guest_id = g.guest_id
+join rooms r on b.room_id = r.room_id;
 
 -- Cho biết mỗi khách đã đặt phòng bao nhiêu lần
 -- Tính doanh thu của mỗi phòng, với công thức: “Doanh thu = số ngày ở × giá thuê theo ngày”
