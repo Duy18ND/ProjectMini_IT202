@@ -110,8 +110,20 @@ from Enrollment e
 join Student s on e.StudentID = s.StudentID
 join Course c on e.CourseID = c.CourseID
 where e.CourseID = p_CourseID
-order by e.Score desc
-limit 1; 
+order by e.Score desc;
 end $$
 delimiter ;
+CALL GetTopScoreStudent("C00002");
 -- b) Gọi thủ tục trên để tìm sinh viên có điểm cao nhất môn Database Systems (C00001).
+delimiter $$
+create procedure GetTopScoreStudent (IN p_CourseID CHAR(6))
+begin 
+select s.StudentID, s.FullName, c.CourseName, e.Score
+from Enrollment e
+join Student s on e.StudentID = s.StudentID
+join Course c on e.CourseID = c.CourseID
+where e.CourseID = p_CourseID
+order by e.Score desc;
+end $$
+delimiter ;
+CALL GetTopScoreStudent('C00001');
